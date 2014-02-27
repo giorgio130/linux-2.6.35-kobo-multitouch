@@ -264,7 +264,7 @@ static void zForce_ir_touch_report_data(struct i2c_client *client, uint8_t *buf)
 
 	int count = buf[0];
 	int n;
-	int fingers_down = 0;
+	static int fingers_down = 0;
 
 	// process events
 	for (n = 0; n < count; n++) {
@@ -638,14 +638,14 @@ static int zForce_ir_touch_probe(
 	set_bit(ABS_MT_POSITION_Y, zForce_ir_touch_data.input->absbit);
 
 	//input_mt_create_slots(zForce_ir_touch_data.input, 2);
-	input_set_abs_params(zForce_ir_touch_data.input, ABS_X, 0, ZFORCE_TS_HEIGHT - 1, 0, 0);
-	input_set_abs_params(zForce_ir_touch_data.input, ABS_Y, 0, ZFORCE_TS_WIDTH - 1, 0, 0);
+	input_set_abs_params(zForce_ir_touch_data.input, ABS_X, 0, ZFORCE_TS_WIDTH - 1, 0, 0);
+	input_set_abs_params(zForce_ir_touch_data.input, ABS_Y, 0, ZFORCE_TS_HEIGHT - 1, 0, 0);
 	input_set_abs_params(zForce_ir_touch_data.input, ABS_PRESSURE, 0, 2048, 0, 0);
 	input_set_abs_params(zForce_ir_touch_data.input, ABS_HAT0X, 0, ZFORCE_TS_X_MAX, 0, 0);
 	input_set_abs_params(zForce_ir_touch_data.input, ABS_HAT0Y, 0, ZFORCE_TS_Y_MAX, 0, 0);
 	//input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_SLOT, 0, 1, 0, 0);
-	input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_POSITION_X, 0, ZFORCE_TS_HEIGHT - 1, 0, 0);
-	input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_POSITION_Y, 0, ZFORCE_TS_WIDTH - 1, 0, 0);
+	input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_POSITION_X, 0, ZFORCE_TS_WIDTH - 1, 0, 0);
+	input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_POSITION_Y, 0, ZFORCE_TS_HEIGHT - 1, 0, 0);
 	input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_TRACKING_ID, 0, 15, 0, 0);
 	input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_TOUCH_MAJOR, 0, 15, 0, 0);
 	input_set_abs_params(zForce_ir_touch_data.input, ABS_MT_WIDTH_MAJOR, 0, 15, 0, 0);
